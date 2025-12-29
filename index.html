@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Gráfica Castello - Links Diretos</title>
+    <link rel="icon" type="image/png" href="logo.png">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* =======================================================
+           CONFIGURAÇÕES DE CORES PERSONALIZÁVEIS
+           ======================================================= */
+        :root {
+            /* Cor principal da marca - pode alterar para qualquer cor HEX */
+            --cor-primaria: #00d2d3;
+            --cor-primaria-escura: #00a8a9;
+            --cor-primaria-clara: rgba(0, 210, 211, 0.1);
+            
+            /* Cores do tema escuro moderno */
+            --cor-fundo: #0f0f13;
+            --cor-card: #1a1a1f;
+            --cor-card-hover: #222228;
+            --cor-borda: rgba(255, 255, 255, 0.08);
+            --cor-texto: #ffffff;
+            --cor-texto-secundario: #b0b0b8;
+            
+            /* Sombras e efeitos */
+            --sombra-card: 0 8px 32px rgba(0, 0, 0, 0.3);
+            --sombra-botao: 0 4px 20px rgba(0, 210, 211, 0.2);
+            --sombra-botao-hover: 0 8px 30px rgba(0, 210, 211, 0.3);
+            
+            /* Bordas arredondadas */
+            --border-radius: 16px;
+            --border-radius-botao: 12px;
+        }
+
+        /* Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Estilos Gerais */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--cor-fundo);
+            color: var(--cor-texto);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Efeito de partículas no fundo */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(0, 210, 211, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(0, 210, 211, 0.03) 0%, transparent 50%);
+            z-index: -1;
+        }
+
+        /* Container Principal */
+        .container {
+            width: 100%;
+            max-width: 480px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        /* Animação de entrada */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* === ÁREA DO PERFIL === */
+        .profile-area {
+            text-align: center;
+            margin: 20px 0 40px;
+            width: 100%;
+            position: relative;
+        }
+
+        /* Efeito de brilho atrás da logo */
+        .profile-area::before {
+            content: '';
+            position: absolute;
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--cor-primaria-clara) 0%, transparent 70%);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: -1;
+            filter: blur(20px);
+        }
+
+        .profile-img {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            object-fit: cover;
+            /* ALTERADO: Removida borda azul fixa, agora será neutra */
+            border: 4px solid var(--cor-card);
+            padding: 4px;
+            background-color: var(--cor-card);
+            box-shadow: 0 0 40px rgba(255, 255, 255, 0.1); /* Sombra neutra */
+            margin-bottom: 20px;
+            transition: all 0.4s ease;
+        }
+
+        .profile-img:hover {
+            transform: scale(1.05) rotate(5deg);
+            box-shadow: 0 0 50px rgba(0, 210, 211, 0.4);
+        }
+
+        .profile-name {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            background: linear-gradient(90deg, var(--cor-primaria), #7efff5);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: 0.5px;
+        }
+
+        .profile-desc {
+            font-size: 1rem;
+            color: var(--cor-texto-secundario);
+            font-weight: 300;
+            max-width: 300px;
+            margin: 0 auto;
+            line-height: 1.5;
+        }
+
+        /* === LISTA DE LINKS - BOTÕES MODERNIZADOS === */
+        .link-list {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            margin-bottom: 20px;
+        }
+
+        .btn-link {
+            display: flex;
+            align-items: center;
+            background-color: var(--cor-card);
+            color: var(--cor-texto);
+            text-decoration: none;
+            padding: 18px 24px;
+            border-radius: var(--border-radius-botao);
+            border: 1px solid var(--cor-borda);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            box-shadow: var(--sombra-card);
+        }
+
+        /* Efeito de brilho ao lado do botão */
+        .btn-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.7s ease;
+        }
+
+        .btn-link:hover::before {
+            left: 100%;
+        }
+
+        /* Container da logo dentro do botão */
+        .btn-logo {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 18px;
+            background-color: rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-logo::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 100%);
+            border-radius: 12px;
+        }
+
+        /* Estilo da imagem dentro do logo */
+        .btn-logo img {
+            width: 24px;
+            height: 24px;
+            object-fit: contain;
+            filter: brightness(1.2);
+            z-index: 1;
+        }
+
+        /* Texto do botão */
+        .btn-text {
+            flex-grow: 1;
+            text-align: left;
+        }
+
+        .btn-title {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 4px;
+            letter-spacing: 0.3px;
+        }
+
+        .btn-subtitle {
+            font-size: 0.85rem;
+            color: var(--cor-texto-secundario);
+            font-weight: 300;
+        }
+
+        /* Ícone de seta */
+        .btn-arrow {
+            color: var(--cor-primaria);
+            font-size: 1.2rem;
+            opacity: 0;
+            transform: translateX(-10px);
+            transition: all 0.3s ease;
+        }
+
+        /* Efeitos de hover */
+        .btn-link:hover {
+            transform: translateY(-5px) scale(1.02);
+            background-color: var(--cor-card-hover);
+            border-color: var(--cor-primaria);
+            box-shadow: var(--sombra-botao-hover);
+        }
+
+        .btn-link:hover .btn-logo {
+            transform: scale(1.1);
+            background-color: rgba(0, 210, 211, 0.1);
+        }
+
+        .btn-link:hover .btn-arrow {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+       
+        /* === BANNER PROMOCIONAL === */
+        .banner-area {
+            width: 100%;
+            margin-top: 30px;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .banner-label {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 15px;
+            color: var(--cor-primaria);
+            font-weight: 600;
+            text-align: center;
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .banner-label::after {
+            content: '';
+            position: absolute;
+            width: 60px;
+            height: 2px;
+            background: var(--cor-primaria);
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .banner-link {
+            display: block;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            position: relative;
+            border: 1px solid var(--cor-borda);
+            box-shadow: var(--sombra-card);
+            transition: all 0.4s ease;
+        }
+
+        .banner-link:hover {
+            transform: translateY(-5px) scale(1.01);
+            box-shadow: var(--sombra-botao-hover);
+            border-color: var(--cor-primaria);
+        }
+
+        .banner-img {
+            width: 100%;
+            display: block;
+            transition: transform 0.6s ease;
+        }
+
+        .banner-link:hover .banner-img {
+            transform: scale(1.05);
+        }
+
+        /* Efeito de brilho no banner */
+        .banner-link::after {
+            content: 'OFERTA ESPECIAL';
+            position: absolute;
+            top: 15px;
+            right: -35px;
+            background: var(--cor-primaria);
+            color: #000;
+            font-weight: 700;
+            font-size: 0.75rem;
+            padding: 5px 40px;
+            transform: rotate(45deg);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        /* === RODAPÉ === */
+        footer {
+            margin-top: 30px;
+            padding: 20px;
+            font-size: 0.8rem;
+            color: var(--cor-texto-secundario);
+            text-align: center;
+            width: 100%;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .footer-text {
+            margin-bottom: 5px;
+        }
+
+        /* Animações de entrada para os botões */
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Aplica animação com delay para cada botão */
+        .btn-link {
+            animation: slideIn 0.5s ease-out forwards;
+            opacity: 0;
+        }
+
+        .btn-link:nth-child(1) { animation-delay: 0.1s; }
+        .btn-link:nth-child(2) { animation-delay: 0.2s; }
+        .btn-link:nth-child(3) { animation-delay: 0.3s; }
+        .btn-link:nth-child(4) { animation-delay: 0.4s; }
+        .btn-link:nth-child(5) { animation-delay: 0.5s; }
+        .btn-link:nth-child(6) { animation-delay: 0.6s; }
+        .btn-link:nth-child(7) { animation-delay: 0.7s; }
+        .btn-link:nth-child(8) { animation-delay: 0.8s; }
+
+        /* Responsividade */
+        @media (max-width: 500px) {
+            .container {
+                max-width: 95%;
+            }
+            
+            .profile-img {
+                width: 120px;
+                height: 120px;
+            }
+            
+            .profile-name {
+                font-size: 1.6rem;
+            }
+            
+            .btn-link {
+                padding: 16px 20px;
+            }
+            
+            .btn-logo {
+                width: 45px;
+                height: 45px;
+                margin-right: 15px;
+            }
+        }
+
+        /* Efeito de clique nos botões */
+        .btn-link:active {
+            transform: translateY(-2px) scale(0.98);
+            transition: transform 0.1s ease;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <!-- ÁREA DO PERFIL -->
+        <div class="profile-area">
+            <img src="logo.png" alt="Logo Gráfica Castello" class="profile-img">
+            <p class="profile-desc">Impressão digital rápida, banners, cartões e muito mais</p>
+        </div>
+
+        <!-- LISTA DE LINKS -->
+        <div class="link-list">
+            
+            <!-- WhatsApp -->
+            <a href="https://wa.me/5531984599525?text=Olá!%20Gostaria%20de%20mais%20informações,%20por%20favor.
+" target="_blank" class="btn-link btn-whatsapp">
+                <div class="btn-logo">
+                    <img src="whatsapp.png" alt="WhatsApp">
+                </div>
+                <div class="btn-text">
+                    <div class="btn-title">WhatsApp</div>
+                    <div class="btn-subtitle">Fale diretamente conosco</div>
+                </div>
+                <div class="btn-arrow">
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+            </a>
+
+            <!-- Site -->
+            <a href="https://graficacastello.com" target="_blank" class="btn-link btn-site">
+                <div class="btn-logo">
+                    <img src="site.png" alt="Site">
+                </div>
+                <div class="btn-text">
+                    <div class="btn-title">Site Oficial</div>
+                    <div class="btn-subtitle">Conheça nossos serviços</div>
+                </div>
+                <div class="btn-arrow">
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+            </a>
+
+            <!-- E-mail -->
+            <a href="mailto:contato@graficacastello.com" class="btn-link btn-email">
+                <div class="btn-logo">
+                    <img src="email.png" alt="Email">
+                </div>
+                <div class="btn-text">
+                    <div class="btn-title">E-mail</div>
+                    <div class="btn-subtitle">Envie-nos uma mensagem</div>
+                </div>
+                <div class="btn-arrow">
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+            </a>
+
+            <!-- Localização -->
+            <a href="https://maps.app.goo.gl/Z6pVEPmCGY1z4fgHA" target="_blank" class="btn-link btn-location">
+                <div class="btn-logo">
+                    <img src="localizacao.png" alt="Localização">
+                </div>
+                <div class="btn-text">
+                    <div class="btn-title">Localização</div>
+                    <div class="btn-subtitle">Venha nos visitar</div>
+                </div>
+                <div class="btn-arrow">
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+            </a>
+
+	    <!-- Avaliar Google -->
+            <a href="https://g.page/r/CRtlc8aFTCXPEAE/review" target="_blank" class="btn-link btn-location">
+                <div class="btn-logo">
+                    <img src="avaliar.png" alt="Avaliar no Google">
+                </div>
+                <div class="btn-text">
+                    <div class="btn-title">Avaliar no Google</div>
+                    <div class="btn-subtitle">Avalie nossa loja, é muito importante para nós!</div>
+                </div>
+                <div class="btn-arrow">
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+            </a>
+           
+	    <!-- Instagram -->
+            <a href="https://instagram.com/graficacastello" target="_blank" class="btn-link btn-instagram">
+                <div class="btn-logo">
+                    <img src="instagram.png" alt="Instagram">
+                </div>
+                <div class="btn-text">
+                    <div class="btn-title">Instagram</div>
+                    <div class="btn-subtitle">Siga nosso trabalho</div>
+                </div>
+                <div class="btn-arrow">
+                    <i class="fas fa  -chevron-right"></i>
+                </div>
+            </a>
+
+            <!-- TikTok -->
+            <a href="https://tiktok.com/@graficacastello" target="_blank" class="btn-link btn-tiktok">
+                <div class="btn-logo">
+                    <img src="tiktok.png" alt="TikTok">
+                </div>
+                <div class="btn-text">
+                    <div class="btn-title">TikTok</div>
+                    <div class="btn-subtitle">Vídeos e novidades</div>
+                </div>
+                <div class="btn-arrow">
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+            </a>
+
+            <!-- YouTube -->
+            <a href="https://youtube.com/graficacastello" target="_blank" class="btn-link btn-youtube">
+                <div class="btn-logo">
+                    <img src="youtube.png" alt="YouTube">
+                </div>
+                <div class="btn-text">
+                    <div class="btn-title">YouTube</div>
+                    <div class="btn-subtitle">Tutoriais e demonstrações</div>
+                </div>
+                <div class="btn-arrow">
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+            </a>
+
+            <!-- Kwai -->
+            <a href="https://kwai.com/graficacastello" target="_blank" class="btn-link btn-kwai">
+                <div class="btn-logo">
+                    <img src="kwai.png" alt="Kwai">
+                </div>
+                <div class="btn-text">
+                    <div class="btn-title">Kwai</div>
+                    <div class="btn-subtitle">Conteúdos exclusivos</div>
+                </div>
+                <div class="btn-arrow">
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+            </a>
+
+        </div>
+
+        <!-- BANNER PROMOCIONAL -->
+        <div class="banner-area">
+            <div class="banner-label">Oferta Limitada</div>
+            <a href="https://wa.me/31984599525?text=Olá!%20Gostaria%20de%20saber%20mais%20sobre%20a%20promoção%20das%20etiquetas%20escolares" target="_blank" class="banner-link">
+                <img src="banner.gif" alt="Promoção Gráfica Castello" class="banner-img">
+            </a>
+        </div>
+
+        <!-- RODAPÉ -->
+        <footer>
+            <p class="footer-text">© 2024 Gráfica Castello - Todos os direitos reservados</p>
+            <p>Desenvolvido com ❤️ para conectar clientes</p>
+        </footer>
+
+    </div>
+
+    <!-- JavaScript para efeitos interativos -->
+    <script>
+        // Adiciona efeito de clique nos botões
+        document.querySelectorAll('.btn-link').forEach(button => {
+            button.addEventListener('click', function(e) {
+                // Efeito visual de clique
+                this.style.transform = 'translateY(-2px) scale(0.98)';
+                
+                // Remove o efeito após 150ms
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 150);
+                
+                // Aqui você pode adicionar tracking de cliques se quiser
+                console.log('Botão clicado: ' + this.querySelector('.btn-title').textContent);
+            });
+        });
+        
+        // Verifica se as imagens existem, caso contrário usa placeholders
+        window.addEventListener('load', function() {
+            const images = document.querySelectorAll('img');
+            
+            images.forEach(img => {
+                img.onerror = function() {
+                    const parent = this.parentElement;
+                    
+                    // Se for uma imagem de logo nos botões
+                    if (parent.classList.contains('btn-logo')) {
+                        const iconClass = this.alt.toLowerCase();
+                        let iconHTML = '';
+                        
+                        // Substitui por ícone Font Awesome baseado no nome do arquivo
+                        if (iconClass.includes('whatsapp')) iconHTML = '<i class="fab fa-whatsapp"></i>';
+                        else if (iconClass.includes('site')) iconHTML = '<i class="fas fa-globe"></i>';
+                        else if (iconClass.includes('email')) iconHTML = '<i class="fas fa-envelope"></i>';
+                        else if (iconClass.includes('localizacao')) iconHTML = '<i class="fas fa-map-marker-alt"></i>';
+                        else if (iconClass.includes('avaliar')) iconHTML = '<i class="fab fa-avaliar"></i>';
+			else if (iconClass.includes('instagram')) iconHTML = '<i class="fab fa-instagram"></i>';
+                        else if (iconClass.includes('tiktok')) iconHTML = '<i class="fab fa-tiktok"></i>';
+                        else if (iconClass.includes('youtube')) iconHTML = '<i class="fab fa-youtube"></i>';
+                        else if (iconClass.includes('kawai')) iconHTML = '<i class="fas fa-star"></i>';
+                        else iconHTML = '<i class="fas fa-link"></i>';
+                        
+                        parent.innerHTML = iconHTML;
+                    }
+                    // Se for a logo do perfil
+                    else if (this.classList.contains('profile-img')) {
+                        this.src = 'https://via.placeholder.com/130/00d2d3/ffffff?text=CASTELLO';
+                    }
+                    // Se for o banner
+                    else if (this.classList.contains('banner-img')) {
+                        this.src = 'https://via.placeholder.com/800x200/1a1a1f/00d2d3?text=PROMOÇÃO+ESPECIAL+50%OFF';
+                    }
+                };
+            });
+            
+            // Adiciona data atual no rodapé
+            const yearSpan = document.querySelector('footer p:first-child');
+            if (yearSpan) {
+                const currentYear = new Date().getFullYear();
+                yearSpan.innerHTML = yearSpan.innerHTML.replace('2024', currentYear);
+            }
+        });
+    </script>
+
+</body>
+</html>
